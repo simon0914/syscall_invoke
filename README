@@ -1,0 +1,23 @@
+
+                           _ _
+   ___ _   _ ___  ___ __ _| | |   Programmrahmen
+  / __| | | / __|/ __/ _` | | |
+  \__ \ |_| \__ \ (_| (_| | | |       "syscall invoke"
+  |___/\__, |___/\___\__,_|_|_|
+       |___/
+
+
+Aufgabenstellung:
+-----------------
+
+Implementieren Sie einen Systemaufruf zur Funktion `getpid', ohne die dafür
+existierende Bibliotheksfunktion zu verwenden, und versuchen Sie dabei,
+möglichst portabel zu sein.
+
+Der bereitstehende Programrahmen nimmt dabei für Sie die erste Hürde, und
+unterscheidet zwischen Windows und Linux, und stellt bereits einen Teil des
+Assembler Codes bereit, der auf Windows 10 64 Bit, bzw. Windows 7 32 Bit
+funktioniert.
+
+Beurteilen Sie, welchen Einfluss die direkte Verwendung von Systemaufrufen ohne
+die Bibliotheksfunktionen auf die Portabilität eines C Programmes hat.
