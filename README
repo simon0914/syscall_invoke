@@ -1,4 +1,3 @@
-
                            _ _
    ___ _   _ ___  ___ __ _| | |   Programmrahmen
   / __| | | / __|/ __/ _` | | |
@@ -14,10 +13,10 @@ Implementieren Sie einen Systemaufruf zur Funktion `getpid', ohne die dafür
 existierende Bibliotheksfunktion zu verwenden, und versuchen Sie dabei,
 möglichst portabel zu sein.
 
-Der bereitstehende Programrahmen nimmt dabei für Sie die erste Hürde, und
+Der bereitstehende Programmrahmen nimmt dabei für Sie die erste Hürde, und
 unterscheidet zwischen Windows und Linux, und stellt bereits einen Teil des
 Assembler Codes bereit, der auf Windows 10 64 Bit, bzw. Windows 7 32 Bit
-funktioniert.
+benötigt wird.
 
 Beurteilen Sie, welchen Einfluss die direkte Verwendung von Systemaufrufen ohne
 die Bibliotheksfunktionen auf die Portabilität eines C Programmes hat.
