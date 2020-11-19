@@ -12,21 +12,28 @@ pid_t getpid_syscall(void)
 {
 	pid_t res;
 	asm volatile (
-		/* TODO: Issue syscall __NR_getpid
-
-				 Hint: You can check rdmsr.h on how to set and read
-				 registers with GCC's inline-assembly.
-		*/
-
+		/* this test for 32 bit architecture is a bit brittle... */
+#if defined(__i386__)
+		// 32 bit version:
+		  "int $0x80"
+		: "=a"(res)
+		: "0"(0x0000) /* TODO: replace 0x0000 with the syscall number */
+#elif defined(__x86_64__)
+		// 64 bit version:
+		  "syscall"
+		: "=a"(res)
+		: "0"(0x0000) /* TODO: replace 0x0000 with the syscall number */
+		: "rcx", "r11"
+#else
+#		error("unrecognized architecture")
+#endif
 		);
 
-	if (/* TODO: Set errno to correct error value if syscall fails. */) {
-
+	if (res <= 0) {
+		errno = -res;
 	}
 
-	/* Placeholder (remove this): Not implemented syscalls return -1 and errno ENOSYS */
-	errno = ENOSYS;
-	return -1;
+	return res;
 }
 
 #elif defined(_WIN32)

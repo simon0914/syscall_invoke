@@ -8,7 +8,7 @@ _TEXT SEGMENT
 CallNtQueryInformationProcess PROC
 
   mov     r10, rcx
-  mov     eax, 0000h  ; enter the correct syscall number for NtQueryInformationProcess
+  mov     eax, 0000h  ; TODO: enter the correct syscall number for NtQueryInformationProcess
                       ; this depends on your version of windows:
                       ;   https://j00ru.vexillium.org/syscalls/nt/32/
                       ;   https://j00ru.vexillium.org/syscalls/nt/64/

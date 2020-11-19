@@ -11,7 +11,7 @@ clean:
 	$(RM) $(BIN) $(OBJ)
 
 $(BIN): $(OBJ)
-	$(CC) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) -o $@ $< -c $(CFLAGS)
+	$(CC) $(CFLAGS) -o $@ $< -c
