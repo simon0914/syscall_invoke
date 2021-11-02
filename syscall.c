@@ -1,12 +1,20 @@
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__APPLE__)
 
-/* this code will be compiled on linux */
+/* this code will be compiled on linux and macos.
+ * specific differences are highlighted below. */
 
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
-#include <asm/unistd.h>
+
+#if defined(__linux__)
+#  include <asm/unistd.h>
+#  define SYSCALL_MASK 0x0
+#elif defined(__APPLE__)
+#  include <sys/syscall.h>
+#  define SYSCALL_MASK 0x02000000
+#endif
 
 pid_t getpid_syscall(void)
 {
@@ -17,15 +25,19 @@ pid_t getpid_syscall(void)
 		// 32 bit version:
 		  "int $0x80"
 		: "=a"(res)
-		: "0"(0x0000) /* TODO: replace 0x0000 with the syscall number */
+       /* TODO: replace 0x0000 below with the syscall number
+        *       or a symbolic constant. */
+		: "0"(SYSCALL_MASK | 0x0000)
 #elif defined(__x86_64__)
 		// 64 bit version:
 		  "syscall"
 		: "=a"(res)
-		: "0"(0x0000) /* TODO: replace 0x0000 with the syscall number */
+       /* TODO: replace 0x0000 below with the syscall number
+        *       or a symbolic constant. */
+		: "0"(SYSCALL_MASK | 0x0000)
 		: "rcx", "r11"
 #else
-#		error("unrecognized architecture")
+#  error Unsupported Architecture. Send a PR to add support!
 #endif
 		);
 
@@ -78,8 +90,7 @@ pid_t getpid_syscall(void)
 }
 
 #else
-/* if neither linux, nor windows, we can't proceed. */
-#error neither windows nor linux?
+#  error Unsupported OS. Send a PR to add support!
 #endif
 
 int main(void)
