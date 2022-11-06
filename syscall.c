@@ -36,6 +36,15 @@ pid_t getpid_syscall(void)
 		 *       or a symbolic constant. */
 		: "0"(SYSCALL_MASK | 0x0000)
 		: "rcx", "r11"
+#elif defined(__ARM_ARCH_6__)
+		// found on Raspberry Pi 32bit Raspberry OS compatibility mode
+		  "mov r7,%1\n\t"
+		  "swi #0x00\n\t"
+		  "mov %0, r0"
+		: "=r"(res)
+		/* TODO: replace 0x0000 below with the syscall number
+		*       or a symbolic constant. */
+		: "0"(SYSCALL_MASK | 0x0000)
 #else
 #error Unsupported Architecture. Send a PR to add support!
 #endif
