@@ -27,14 +27,14 @@ pid_t getpid_syscall(void)
 		: "=a"(res)
 		/* TODO: replace 0x0000 below with the syscall number
 		 *       or a symbolic constant. */
-		: "0"(SYSCALL_MASK | 0x0000)
+		: "0"(SYSCALL_MASK | 20) //Eigentlich __NR_getpid, aber das funktioniert nicht auf macOS und wir wissen nicht, wie wir das MAKRO einbinden können
 #elif defined(__x86_64__)
 		// 64 bit version:
 		  "syscall"
 		: "=a"(res)
 		/* TODO: replace 0x0000 below with the syscall number
 		 *       or a symbolic constant. */
-		: "0"(SYSCALL_MASK | 0x0000)
+		: "0"(SYSCALL_MASK | 20) //Eigentlich __NR_getpid, aber das funktioniert nicht auf macOS und wir wissen nicht, wie wir das MAKRO einbinden können
 		: "rcx", "r11"
 #elif defined(__ARM_ARCH_6__)
 		// found on Raspberry Pi 32bit Raspberry OS compatibility mode
@@ -44,7 +44,7 @@ pid_t getpid_syscall(void)
 		: "=r"(res)
 		/* TODO: replace 0x0000 below with the syscall number
 		*       or a symbolic constant. */
-		: "0"(SYSCALL_MASK | 0x0000)
+		: "0"(SYSCALL_MASK | 20)
 #else
 #error Unsupported Architecture. Send a PR to add support!
 #endif
